@@ -1,11 +1,9 @@
-import * as path from 'path';
-import { FastifyInstance } from 'fastify';
+import * as path from 'node:path';
+import type { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import AutoLoad from '@fastify/autoload';
 
-/* eslint-disable-next-line */
-export interface AppOptions {}
 
-export async function app(fastify: FastifyInstance, opts: AppOptions) {
+export async function app(fastify: FastifyInstance, opts: FastifyPluginOptions) {
   // Place here your custom code!
 
   // Do not touch the following lines

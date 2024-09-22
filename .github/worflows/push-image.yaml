@@ -1,0 +1,27 @@
+name: Push Docker Image
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+      - run: npm ci --legacy-peer-deps
+      - name: Build NX and Docker Image
+        run: npx nx docker-build api
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.token }}" | docker login --username "${{ secrets.ghcr_username }}" --password-stdin ghcr.io
+      - name: Push Docker Image to GHCR
+        run: docker push ghcr.io/smnblmrr/test:latest

@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
 import sensible from '@fastify/sensible';
 
@@ -7,6 +7,6 @@ import sensible from '@fastify/sensible';
  *
  * @see https://github.com/fastify/fastify-sensible
  */
-export default fp(async function (fastify: FastifyInstance) {
+export default fp(async (fastify: FastifyInstance) => {
   fastify.register(sensible);
 });
